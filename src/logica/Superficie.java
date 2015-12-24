@@ -1,13 +1,13 @@
 package logica;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
 import celula.Celula;
 import celula.CelulaCompleja;
 import celula.CelulaSimple;
+import excepciones.PalabraIncorrecta;
 
 
 
@@ -163,49 +163,41 @@ public class Superficie{
 	 * @return El nuevo mundo que hemos cargado del fichero
 	 * @throws IOException para evitar errores de cargado y guardado
 	 */
-	public String cargar(Scanner in) throws IOException{
-		//Scanner scanner = new Scanner(System.in);
-		//String nombre = scanner.nextLine();
-		//scanner.close();
-		String nombre = in.nextLine(), mensaje;
-		File archivo = new File(nombre + ".txt");
-		if (archivo.canRead()){
-			Scanner entrada = new Scanner(archivo);
-			int fila = entrada.nextInt(), columna = entrada.nextInt();
-			//Mundo mundo = new Mundo(fila, columna);
-			if (this.filas == fila && this.columnas == columna){
-				for (int i=0; i < fila; i++){
-					for (int j=0; j < columna; j++){
-						String cadena = entrada.next();
-						if (!cadena.equals("-")){
-							//Crear nueva celula
-							String [] posicion = cadena.split("-");
-							if (posicion.length == 1){
-								int explota = Integer.parseInt(cadena);
-								this.superficie[i][j] = new CelulaCompleja(explota);
-							}
-							else{
-								int SinMover = Integer.parseInt(posicion[0]);
-								int Reproduccion = Integer.parseInt(posicion[1]);
-								this.superficie[i][j] = new CelulaSimple (SinMover, Reproduccion);
-							}
-						}
-						else {
-							vaciarCasilla(i, j);
-						}
-					}
+	public boolean cargar(Scanner entrada, boolean complejo){
+		boolean simple = true;
+		//Mientras que no llegue al final del archivo
+		while (entrada.hasNext()){
+			int f = entrada.nextInt(), c = entrada.nextInt();
+			String tipo = entrada.nextLine();
+			try {
+				if (tipo.equalsIgnoreCase("simple")){
+					this.superficie[f][c] = new CelulaSimple();
+				}
+				else if (tipo.equalsIgnoreCase("complejo") && complejo){
+					this.superficie[f][c] = new CelulaCompleja();
+					simple = false;
+				}
+				else {
+					throw new PalabraIncorrecta("La palabra que hay es incorrecta");
 				}
 			}
-			else {
-				mensaje = "La dimension del tablero del juego a cargar no es correcta, ajuste la dimension y vuelva a intentarlo"
-						+ System.getProperty("line.separator");
+			catch(PalabraIncorrecta e){
+				e.getMessage();
 			}
-			entrada.close();
-			mensaje = "Partida cargada correctamente" + System.getProperty("line.separator");
+	    	superficie[f][c].cargar(entrada);
 		}
-		else {
-			mensaje = "El nombre del fichero especificado no existe" + System.getProperty("line.separator");
-		}
+		return simple;
+	}
+
+	public String guardar() {
+		String mensaje = "";
+    	for(int i = 0; i < this.filas; i++){
+    		for(int j = 0; j < this.columnas; j++){
+    			if (!casillaVacia(i,j)){
+    				mensaje = i + " " + j + " " + superficie[i][j].guardar();
+    			}
+		    }
+		}	
 		return mensaje;
 	}
 	

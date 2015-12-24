@@ -1,8 +1,13 @@
 package comandos;
-import java.io.IOException;
-import java.util.Scanner;
 
-import logica.Mundo;
+
+import controlador.Controlador;
+import excepciones.ErrorDeInicializacion;
+import excepciones.FormatoNumericoIncorrecto;
+import excepciones.IndicesFueraDeRango;
+import excepciones.PalabraIncorrecta;
+
+
 
 public interface Comando {
 	
@@ -13,7 +18,8 @@ public interface Comando {
 	 * @return un string del mundo con sus celulas y casillas vacias
 	 * @throws IOException para evitar problemas en el cargado y guardado del fichero
 	 */
-	public abstract String ejecuta(Mundo mundo, Scanner in) throws IOException;//Añado el Scanner en la cabecera para poder permitir al usuario ponerle nombre al fichero que quiera cargar o guardar
+	public abstract String ejecuta(Controlador controlador) throws ErrorDeInicializacion,
+		FormatoNumericoIncorrecto, IndicesFueraDeRango, PalabraIncorrecta;//Añado el Scanner en la cabecera para poder permitir al usuario ponerle nombre al fichero que quiera cargar o guardar
 	
 	/**
 	 * Metodo que compara lo que el usuario a metido por consola con los comandos, evita que el usuario meta comandos incorrectos

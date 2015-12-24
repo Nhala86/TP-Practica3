@@ -1,14 +1,15 @@
 package comandos;
-import java.util.Scanner;
 
-import logica.Mundo;
+
+import controlador.Controlador;
+
 
 public class Iniciar implements Comando {
 	
 	@Override
-	public String ejecuta(Mundo mundo, Scanner in){
-		mundo.vaciar();
-		mundo.generarCelulas();
+	public String ejecuta(Controlador controlador){
+		controlador.vaciar();
+		controlador.generarCelulas();
 		return "Iniciando el mundo" + System.getProperty("line.separator");
 	}
 

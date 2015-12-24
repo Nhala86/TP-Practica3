@@ -1,23 +1,17 @@
 package logica;
 
-import java.io.File;
-import java.io.FileWriter;
+
 import java.io.IOException;
 import java.lang.StringBuffer;
 import java.util.Scanner;
 
 import celula.Celula;
-import celula.CelulaCompleja;
-import celula.CelulaSimple;
 
-public class Mundo{
-	
-	private static final int NUMEROCELULASSIMPLES = 50;
-	private static final int NUMEROCELULASCOMPLEJAS = 15;
-	private static final int NUMEROFILAS = 10;
-	private static final int NUMEROCOLUMNAS = 10;
-	private boolean simulacionTerminada = false;
-	private Superficie superficie;
+
+public abstract class Mundo{
+	protected int filas;
+	protected int columnas;
+	protected Superficie superficie;
 
 		
 	/**
@@ -26,8 +20,9 @@ public class Mundo{
 	 * aleatorias para esa superficie.
 	 */	
 	public Mundo(){
-		this.superficie = new Superficie(NUMEROFILAS, NUMEROCOLUMNAS);
-		this.generarCelulas();
+		this.filas = 0;
+		this.columnas = 0;
+		this.superficie = new Superficie(this.filas, this.columnas);
 	}
 	
 	/**
@@ -35,34 +30,17 @@ public class Mundo{
 	 * @param f Numero de filas que tiene la matriz
 	 * @param c Numero de columnas que tiene la matriz
 	 */	
-	public Mundo(int f, int c) {
-		this.superficie = new Superficie(f, c);
-		vaciar();
+	public Mundo(int f, int c){
+		this.filas = f;
+		this.columnas = c;
+		this.superficie = new Superficie(this.filas, this.columnas);
+		inicializaMundo();
 	}
-
 	/**
-	 * Metodo que aleatoriamente coloca las celulas en las casillas
+	 * Metodo que aleatoriamente coloca las celulas en las casillas, inializando la superficie
 	 */	
-	public void generarCelulas(){
-		int contCelulas = 0;
-		while (contCelulas < NUMEROCELULASSIMPLES){
-			int f = (int) (Math.random()* getFilas());
-			int c = (int) (Math.random()* getColumnas());
-			if (this.superficie.casillaVacia(f, c)) {
-				this.superficie.llenarCasilla(f, c, new CelulaSimple());
-				contCelulas++;
-			}
-		}
-		contCelulas = 0;
-		while (contCelulas < NUMEROCELULASCOMPLEJAS){
-			int f = (int) (Math.random()* getFilas());
-			int c = (int) (Math.random()* getColumnas());
-			if (this.superficie.casillaVacia(f, c)) {
-				this.superficie.llenarCasilla(f, c, new CelulaCompleja());
-				contCelulas++;
-			}
-		}
-	}
+	public abstract void inicializaMundo();
+		
 	
 	/**
 	 * Metodo String que llama a la clase Superficie para generar la matriz del juego
@@ -81,8 +59,8 @@ public class Mundo{
 	public String evoluciona(){
 		String mensaje = "";
 		boolean movido[][] = matriz();
-		for(int i = 0; i < this.getFilas(); i++){
-    		for(int j = 0; j < this.getColumnas(); j++){
+		for(int i = 0; i < this.filas; i++){
+    		for(int j = 0; j < this.columnas; j++){
     			if (!superficie.casillaVacia(i, j) && !movido[i][j]){
     				CasillaMensaje casillaMensaje = this.superficie.ejecutaMovimiento(i, j);
     				//Si no se puede mover la celula, no se toca la matriz
@@ -101,9 +79,9 @@ public class Mundo{
 	 * @return La matriz booleana de dimension del tablero, con todas las posiciones inicializadas a falso
 	 */	
 	private boolean[][] matriz(){
-		boolean [][] movido = new boolean [this.getFilas()][this.getColumnas()];
-		for(int i = 0; i < this.getFilas(); i++){
-    		for(int j = 0; j < this.getColumnas(); j++){
+		boolean [][] movido = new boolean [this.filas][this.columnas];
+		for(int i = 0; i < this.filas; i++){
+    		for(int j = 0; j < this.columnas; j++){
     			movido[i][j] = false;
 		    }
 		}
@@ -137,30 +115,8 @@ public class Mundo{
 	public boolean eliminarCelulaSuperficie(int f, int c){
 		return superficie.vaciarCasilla(f,c);
 	}
-	
-	/**
-	 * Metodo que devuelve el valor entero positivo de las filas de la superficie
-	 * @return valor entero positivo de las filas de la Superficie en el Mundo
-	 */
-	public int getFilas(){
-		return this.superficie.getFilas();
-	}
-	
-	/**
-	 * Metodo que devuelve el valor entero positivo de las columnas de la superficie
-	 * @return valor entero positivo de las columnas de la Superficie en el Mundo
-	 */
-	public int getColumnas(){
-		return this.superficie.getColumnas();
-	}	
 
-	/**
-	 * Metodo booleano que llama a simulacionTerminada de la Superficie
-	 * @return true si está finalizada o false si no lo está
-	 */
-	public boolean getSimulacionTerminada(){
-		return simulacionTerminada;
-	}
+	
 	
 	/**
 	 * Se encarga de guardar las dimensiones del tablero y luego todo el tablero con el estado actual del juego en juego.txt
@@ -168,15 +124,27 @@ public class Mundo{
 	 * @return un fichero de texto con el Mundo guardado
 	 * @throws IOException  para evitar los errores del guardado y el cargado
 	 */
-	public String guardar(Scanner in) throws IOException{
-		String nombre = in.nextLine();
+	public String guardar(){
+		String mensaje = this.filas + System.getProperty("line.separator") + this.columnas + System.getProperty("line.separator");
+		mensaje += superficie.guardar();
+		return mensaje;
+		/*
+		String nombre = fichero;
 		File archivo = new File(nombre + ".txt");
-		FileWriter escribir = new FileWriter(archivo);
-		String dim = this.getFilas() + " " + this.getColumnas() + System.getProperty("line.separator");
-		escribir.append(dim);
-		escribir.append(this.toStringBuffer());
-		escribir.close();
+		FileWriter escribir;
+		try {
+			escribir = new FileWriter(archivo);
+			String dim = this.filas + " " + this.columnas + System.getProperty("line.separator");
+			escribir.append(dim);
+			escribir.append(this.toStringBuffer());
+			escribir.close();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 		return "Partida guardada correctamente" + System.getProperty("line.separator");
+		*/
+		
 	}	
 	
 	/**
@@ -188,20 +156,15 @@ public class Mundo{
 	 */
 	public boolean validarDatos(int f, int c){
 		boolean valido = false;
-		if(f >= 0 && f < getFilas()){
-			if(c >= 0 && c < getColumnas()){
+		if(f >= 0 && f < this.filas){
+			if(c >= 0 && c < this.columnas){
 				valido = true;
 			}
 		}
 		return valido;
 	}
 	
-	/**
-	 * Metodo que iguala a true la simulacionTerminada
-	 */
-	public void terminaSimulacion() {
-		this.simulacionTerminada = true;
-	}
+	
 
 	/**
 	 * Metodo que llama a cargar un string de un fichero de Superficie
@@ -209,9 +172,9 @@ public class Mundo{
 	 * @return un string de Mundo
 	 * @throws IOException para evitar los errores del guardado y cargado
 	 */
-	public String cargar(Scanner in) throws IOException {
-		return superficie.cargar(in);
-	}	
+	public abstract void cargar(Scanner entrada);
+	public abstract boolean esSimple();
+	
 	
 }
 

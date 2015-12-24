@@ -1,8 +1,8 @@
 package comandos;
-import java.io.IOException;
-import java.util.Scanner;
 
-import logica.Mundo;
+
+import controlador.Controlador;
+
 
 public class Ayuda implements Comando {
 	
@@ -21,7 +21,7 @@ public class Ayuda implements Comando {
 	}
 
 	@Override
-	public String ejecuta(Mundo mundo, Scanner in) throws IOException {
+	public String ejecuta(Controlador controlador){
 		return ParserComandos.AyudaComandos();
 		
 	}

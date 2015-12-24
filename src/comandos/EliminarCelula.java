@@ -1,8 +1,9 @@
 package comandos;
 
-import java.util.Scanner;
 
-import logica.Mundo;
+
+import controlador.Controlador;
+
 
 public class EliminarCelula implements Comando {
 	private int fila;
@@ -36,8 +37,8 @@ public class EliminarCelula implements Comando {
 	}
 	
 	@Override
-	public String ejecuta(Mundo mundo, Scanner in){
-		if(mundo.eliminarCelulaSuperficie(this.fila, this.columna)){
+	public String ejecuta(Controlador controlador){
+		if(controlador.eliminarCelulaSuperficie(this.fila, this.columna)){
 			return "Se ha eliminado la celula de la posicion(" + this.fila + "," + this.columna + ")" + System.getProperty("line.separator");
 		}
 		else return "No existe la celula en esa posicion" + System.getProperty("line.separator");

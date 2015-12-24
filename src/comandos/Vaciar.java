@@ -1,7 +1,8 @@
 package comandos;
-import java.util.Scanner;
 
-import logica.Mundo;
+
+import controlador.Controlador;
+
 
 public class Vaciar implements Comando {
 
@@ -20,8 +21,8 @@ public class Vaciar implements Comando {
 	}
 	
 	@Override
-	public String ejecuta(Mundo mundo, Scanner in){
-		mundo.vaciar();
+	public String ejecuta(Controlador controlador){
+		controlador.vaciar();
 		return "Vaciando el tablero de celulas" + System.getProperty("line.separator");
 	}
 

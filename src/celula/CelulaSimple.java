@@ -1,5 +1,7 @@
 package celula;
 
+import java.util.Scanner;
+
 import logica.Casilla;
 import logica.CasillaMensaje;
 import logica.Superficie;
@@ -98,13 +100,27 @@ public class CelulaSimple implements Celula {
      * Coge los valores numericos de pasosSinMover y pasosReproduccion y los convierte en una cadena para mostrar
      * @return una cadena con los dos parametros numericos de la celula, separados por un guion
      */
-	public Object toStringBuffer() {
-		return this.pasosSinMover + "-" + this.pasosReproduccion;
+	public StringBuffer toStringBuffer() {
+		StringBuffer mensaje = new StringBuffer("");
+		mensaje.append(this.pasosSinMover + "-" + this.pasosReproduccion);
+		return mensaje;
 	}
 	
 	@Override
 	public boolean esComestible() {
 		return true;
+	}
+	@Override
+	public void cargar(Scanner entrada){
+		int reproduccion = entrada.nextInt(), sinMover = entrada.nextInt();
+		this.pasosReproduccion -= reproduccion;
+		this.pasosSinMover -= sinMover;
+		//while (entrada.hasNext()){	
+		
+	}
+	@Override
+	public String guardar() {
+		return "simple " + this.pasosReproduccion + " " + this.pasosSinMover;
 	}
 	
 	

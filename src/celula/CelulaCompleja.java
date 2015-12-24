@@ -1,5 +1,7 @@
 package celula;
 
+import java.util.Scanner;
+
 import logica.Casilla;
 import logica.CasillaMensaje;
 import logica.Superficie;
@@ -66,12 +68,25 @@ public class CelulaCompleja implements Celula {
      * Coge los valores numericos de pasosSinMover y pasosReproduccion y los convierte en una cadena para mostrar
      * @return una cadena con los dos parametros numericos de la celula, separados por un guion
      */
-	public Object toStringBuffer() {
-		return (" " + this.explota + " ");
+	public StringBuffer toStringBuffer() {
+		StringBuffer mensaje = new StringBuffer("");
+		mensaje.append(" " + this.explota + " ");
+		return mensaje;
 	}
 	@Override
 	public boolean esComestible() {
 		return false;
+	}
+
+	@Override
+	public void cargar(Scanner entrada) {
+		int explota = entrada.nextInt();
+		this.explota -= explota;
+	}
+
+	@Override
+	public String guardar() {
+		return "compleja " + this.explota;
 	}
 
 }

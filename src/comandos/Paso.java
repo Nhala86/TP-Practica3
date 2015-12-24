@@ -1,8 +1,9 @@
 package comandos;
 
-import java.util.Scanner;
 
-import logica.Mundo;
+
+import controlador.Controlador;
+
 
 public class Paso implements Comando {
 
@@ -21,8 +22,8 @@ public class Paso implements Comando {
 	}
 	
 	@Override
-	public String ejecuta(Mundo mundo, Scanner in){
-		return mundo.evoluciona();
+	public String ejecuta(Controlador controlador){
+		return controlador.daUnPaso();
 	}
 
 }

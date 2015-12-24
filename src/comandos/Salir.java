@@ -1,7 +1,8 @@
 package comandos;
-import java.util.Scanner;
 
-import logica.Mundo;
+
+import controlador.Controlador;
+
 
 public class Salir implements Comando {
 
@@ -20,8 +21,8 @@ public class Salir implements Comando {
 	}
  
 	@Override
-	public String ejecuta(Mundo mundo, Scanner in){
-		mundo.terminaSimulacion();
+	public String ejecuta(Controlador controlador){
+		controlador.terminaSimulacion();
 		return "Juego finalizado";
 	}
 
