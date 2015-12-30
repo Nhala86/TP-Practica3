@@ -68,10 +68,8 @@ public class CelulaCompleja implements Celula {
      * Coge los valores numericos de pasosSinMover y pasosReproduccion y los convierte en una cadena para mostrar
      * @return una cadena con los dos parametros numericos de la celula, separados por un guion
      */
-	public StringBuffer toStringBuffer() {
-		StringBuffer mensaje = new StringBuffer("");
-		mensaje.append(" " + this.explota + " ");
-		return mensaje;
+	public String toStringBuffer() {
+		return (" " + this.explota + " ");
 	}
 	@Override
 	public boolean esComestible() {

@@ -60,16 +60,28 @@ public class Controlador {
 	 */
     private String[] crearComando(Scanner in){
     	String[] palabras = null;
-    	System.out.println(mundo.toStringBuffer());
 		System.out.print("Comando > ");
 		String string = in.nextLine();
 		String stringlower = string.toLowerCase();
 		palabras = stringlower.split(" ");
 		if(palabras.length == 3){ // Protege de que el usuario meta chorradas junto con el comando o meta una fila y columna incorrecta
-			if(!this.validarDatos(Integer.parseInt(palabras[1]),Integer.parseInt(palabras[2]))){
-				System.out.println("Valores de fila y columna no validos");
-				this.crearComando(in);
+			try{
+				int a = Integer.parseInt(palabras[1]);
+				int b = Integer.parseInt(palabras[2]);
+				if(!this.validarDatos(a, b)){
+					System.out.println("Los valores definidos no son validos");
+					//throw ExcepcionDeRango();
+				}
+			}catch(NumberFormatException e){
+				System.out.println("Error de formato en los valores de fila y/o columna");
 			}
+			/*
+			catch(ExcepcionDeRango ex){
+				System.out.println("Los valores definidos no son validos");
+				palabras = crearComando(in);
+			}
+			*/
+			
 		}
 		return  palabras;
     	
@@ -85,6 +97,7 @@ public class Controlador {
 		System.out.println("Bienvenido al juego de la vida: ");
 		String mensaje = "";
 		while (!this.simulacionTerminada){
+			System.out.println(mundo.toStringBuffer());
 			String [] palabras = crearComando(this.in);			
 			Comando comando = ParserComandos.parseaComando(palabras);
 
@@ -113,7 +126,7 @@ public class Controlador {
 	}
 	
 	public void juega(Mundo mundo){
-		
+		this.mundo = mundo;
 	}
 	
 	public void cargar(String nombreFichero){

@@ -47,7 +47,7 @@ public abstract class Mundo{
 	 * @return la matriz de la superficie
 	 */
 	public StringBuffer toStringBuffer(){
-		return superficie.toStringBuffer();
+		return(superficie.toStringBuffer());
 	}
 	
 	/**

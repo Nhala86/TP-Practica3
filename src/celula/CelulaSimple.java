@@ -100,10 +100,8 @@ public class CelulaSimple implements Celula {
      * Coge los valores numericos de pasosSinMover y pasosReproduccion y los convierte en una cadena para mostrar
      * @return una cadena con los dos parametros numericos de la celula, separados por un guion
      */
-	public StringBuffer toStringBuffer() {
-		StringBuffer mensaje = new StringBuffer("");
-		mensaje.append(this.pasosSinMover + "-" + this.pasosReproduccion);
-		return mensaje;
+	public String toStringBuffer() {
+		return (this.pasosSinMover + "-" + this.pasosReproduccion);
 	}
 	
 	@Override

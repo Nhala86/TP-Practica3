@@ -9,6 +9,11 @@ import logica.MundoSimple;
 public class Juego implements Comando {
 	private Mundo mundo;
 	
+	
+	public Juego(Mundo mundo){
+		this.mundo = mundo;
+	}
+	
 	@Override
 	public String ejecuta(Controlador controlador) {
 		controlador.juega(this.mundo);
@@ -24,16 +29,16 @@ public class Juego implements Comando {
 				f = Integer.parseInt(palabras[2]); 
 				c = Integer.parseInt(palabras[3]);
 				simple = Integer.parseInt(palabras[4]);
-				mundo = new MundoSimple(f,c,simple);
-				comando = new Juego();
+				this.mundo = new MundoSimple(f,c,simple);
+				comando = new Juego(mundo);
 			}
 			else if (palabras[1].equalsIgnoreCase("complejo") && (palabras.length == 6)){
 				f = Integer.parseInt(palabras[2]); 
 				c = Integer.parseInt(palabras[3]);
 				simple = Integer.parseInt(palabras[4]);
 				int complejo = Integer.parseInt(palabras[5]);
-				mundo = new MundoComplejo(f,c,simple,complejo);
-				comando = new Juego();
+				this.mundo = new MundoComplejo(f,c,simple,complejo);
+				comando = new Juego(mundo);
 			}
 			else {
 				comando = null;

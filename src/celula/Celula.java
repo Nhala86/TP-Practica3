@@ -27,7 +27,7 @@ public interface Celula {
 	 * Metodo que devuelve la matriz con casillas llenas con celulas y casillas vacias aleatoriamente
 	 * @return la matriz con las celulas simples y complejas
 	 */
-	StringBuffer toStringBuffer();
+	String toStringBuffer();
 	void cargar(Scanner entrada);
 	String guardar();
 	

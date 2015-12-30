@@ -12,7 +12,7 @@ public final class ParserComandos {
 			new Salir(),
 			new Guardar(""), 
 			new Cargar(""),
-			new Juego(),
+			new Juego(null),
 	};
 	
 	/**
