@@ -34,7 +34,7 @@ public class CasillaMensaje{
 	 * Metodo al que le pasas la fila inicializada de casilla
 	 * @return valor entero positivo de fila
 	 */
-	public int getFila() {
+	public int getFila(){
 		return casilla.getFila();
 	}
 	

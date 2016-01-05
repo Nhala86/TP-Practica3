@@ -8,6 +8,9 @@ import controlador.Controlador;
 public class Cargar implements Comando {
 	private String fichero;
 	
+	public Cargar(){
+	}
+	
 	public Cargar(String nombre) {
 		this.fichero = nombre;
 	}

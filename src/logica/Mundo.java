@@ -6,6 +6,7 @@ import java.lang.StringBuffer;
 import java.util.Scanner;
 
 import celula.Celula;
+import excepciones.PalabraIncorrecta;
 
 
 public abstract class Mundo{
@@ -34,6 +35,7 @@ public abstract class Mundo{
 		this.filas = f;
 		this.columnas = c;
 		this.superficie = new Superficie(this.filas, this.columnas);
+		//No me convence hacer esta llamada inutil
 		inicializaMundo();
 	}
 	/**
@@ -128,23 +130,6 @@ public abstract class Mundo{
 		String mensaje = this.filas + System.getProperty("line.separator") + this.columnas + System.getProperty("line.separator");
 		mensaje += superficie.guardar();
 		return mensaje;
-		/*
-		String nombre = fichero;
-		File archivo = new File(nombre + ".txt");
-		FileWriter escribir;
-		try {
-			escribir = new FileWriter(archivo);
-			String dim = this.filas + " " + this.columnas + System.getProperty("line.separator");
-			escribir.append(dim);
-			escribir.append(this.toStringBuffer());
-			escribir.close();
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
-		return "Partida guardada correctamente" + System.getProperty("line.separator");
-		*/
-		
 	}	
 	
 	/**
@@ -172,7 +157,7 @@ public abstract class Mundo{
 	 * @return un string de Mundo
 	 * @throws IOException para evitar los errores del guardado y cargado
 	 */
-	public abstract void cargar(Scanner entrada);
+	public abstract void cargar(Scanner entrada)throws PalabraIncorrecta;
 	public abstract boolean esSimple();
 	
 	

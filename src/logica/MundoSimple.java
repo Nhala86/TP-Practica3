@@ -4,9 +4,11 @@ package logica;
 import java.util.Scanner;
 
 import celula.CelulaSimple;
+import excepciones.PalabraIncorrecta;
 
 public class MundoSimple extends Mundo {
 	private int simples;
+	
 	
 	public MundoSimple(){
 		super();
@@ -33,19 +35,18 @@ public class MundoSimple extends Mundo {
 	}
 
 	@Override
-	public void cargar(Scanner entrada){
+	public void cargar(Scanner entrada)throws PalabraIncorrecta{
 		int f = entrada.nextInt(), c = entrada.nextInt();
 		this.filas = f;
 		this.columnas = c;
+		
 		this.superficie = new Superficie(this.filas, this.columnas);
 		/*
 		Si llamo a cargar por MundoSimple, no reconozca a las celulas complejas
 		Si la celula es simple, incrementamos el contador
 		*/
-		if (superficie.cargar(entrada, false)){
-			this.simples++;
-		}
-		
+		int[] celulas = superficie.cargar(entrada, false);
+		this.simples = celulas[0];
 	}
 
 	@Override

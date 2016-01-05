@@ -111,8 +111,8 @@ public class CelulaSimple implements Celula {
 	@Override
 	public void cargar(Scanner entrada){
 		int reproduccion = entrada.nextInt(), sinMover = entrada.nextInt();
-		this.pasosReproduccion -= reproduccion;
-		this.pasosSinMover -= sinMover;
+		this.pasosReproduccion = reproduccion;
+		this.pasosSinMover = sinMover;
 		//while (entrada.hasNext()){	
 		
 	}

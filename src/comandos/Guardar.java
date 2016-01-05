@@ -8,6 +8,9 @@ import controlador.Controlador;
 public class Guardar implements Comando {
 	private String fichero;
 	
+	public Guardar(){	
+	}
+	
 	public Guardar(String nombre){
 		this.fichero = nombre;
 	}

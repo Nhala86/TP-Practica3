@@ -79,7 +79,7 @@ public class CelulaCompleja implements Celula {
 	@Override
 	public void cargar(Scanner entrada) {
 		int explota = entrada.nextInt();
-		this.explota -= explota;
+		this.explota = explota;
 	}
 
 	@Override

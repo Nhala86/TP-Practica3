@@ -163,30 +163,27 @@ public class Superficie{
 	 * @return El nuevo mundo que hemos cargado del fichero
 	 * @throws IOException para evitar errores de cargado y guardado
 	 */
-	public boolean cargar(Scanner entrada, boolean complejo){
-		boolean simple = true;
+	public int[] cargar(Scanner entrada, boolean complejo)throws PalabraIncorrecta{
+		//celulas[0] = celulas simples, celulas[1] = celulas complejas
+		int[] celulas = {0,0};
 		//Mientras que no llegue al final del archivo
 		while (entrada.hasNext()){
 			int f = entrada.nextInt(), c = entrada.nextInt();
-			String tipo = entrada.nextLine();
-			try {
-				if (tipo.equalsIgnoreCase("simple")){
-					this.superficie[f][c] = new CelulaSimple();
-				}
-				else if (tipo.equalsIgnoreCase("complejo") && complejo){
-					this.superficie[f][c] = new CelulaCompleja();
-					simple = false;
-				}
-				else {
-					throw new PalabraIncorrecta("La palabra que hay es incorrecta");
-				}
+			String tipo = entrada.next();
+			if (tipo.equalsIgnoreCase("simple")){
+				this.superficie[f][c] = new CelulaSimple();
+				celulas[0]++;
 			}
-			catch(PalabraIncorrecta e){
-				e.getMessage();
+			else if (tipo.equalsIgnoreCase("compleja") && complejo){
+				this.superficie[f][c] = new CelulaCompleja();
+				celulas[1]++;
+			}
+			else {
+				throw new PalabraIncorrecta("La palabra que hay no es ni simple ni compleja incorrecta");
 			}
 	    	superficie[f][c].cargar(entrada);
 		}
-		return simple;
+		return celulas;
 	}
 
 	public String guardar() {
@@ -194,7 +191,7 @@ public class Superficie{
     	for(int i = 0; i < this.filas; i++){
     		for(int j = 0; j < this.columnas; j++){
     			if (!casillaVacia(i,j)){
-    				mensaje = i + " " + j + " " + superficie[i][j].guardar();
+    				mensaje += i + " " + j + " " + superficie[i][j].guardar() + System.getProperty("line.separator");
     			}
 		    }
 		}	

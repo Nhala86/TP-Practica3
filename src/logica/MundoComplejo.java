@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import celula.CelulaCompleja;
 import celula.CelulaSimple;
+import excepciones.PalabraIncorrecta;
 
 public class MundoComplejo extends Mundo {
 	private int complejas;
@@ -45,19 +46,16 @@ public class MundoComplejo extends Mundo {
 	}
 
 	@Override
-	public void cargar(Scanner entrada) {
+	public void cargar(Scanner entrada)throws PalabraIncorrecta {
 		int f = entrada.nextInt();
 		int c = entrada.nextInt();
+		int[] celulas;
 		this.filas = f;
 		this.columnas = c;
 		this.superficie = new Superficie(this.filas, this.columnas);
-		if (superficie.cargar(entrada, true)){
-			this.simples++;
-		}
-		else {
-			this.complejas++;
-		}
-		
+		celulas = superficie.cargar(entrada, true);
+		this.simples = celulas[0];
+		this.complejas = celulas[1];
 	}
 
 	@Override

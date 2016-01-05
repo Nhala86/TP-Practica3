@@ -1,18 +1,21 @@
 package comandos;
 
+import excepciones.ErrorDeInicializacion;
+import excepciones.FormatoNumericoIncorrecto;
+
 public final class ParserComandos {
 	
 	private static final Comando[] comandos = {
-			new Ayuda(),
-			new Iniciar(),
-			new CrearCelula(0,0),
-			new EliminarCelula(0,0), 
 			new Paso(), 
+			new Juego(),
+			new Iniciar(),
+			new CrearCelula(),
+			new EliminarCelula(), 
+			new Ayuda(),
 			new Vaciar(),
+			new Guardar(), 
+			new Cargar(),
 			new Salir(),
-			new Guardar(""), 
-			new Cargar(""),
-			new Juego(null),
 	};
 	
 	/**
@@ -45,7 +48,7 @@ public final class ParserComandos {
 	 * @param palabras array de palabras
 	 * @return el comando que el usuario a solicitado
 	 */
-	public static Comando parseaComando(String[] palabras){
+	public static Comando parseaComando(String[] palabras) throws FormatoNumericoIncorrecto, ErrorDeInicializacion{
 		int i = 0;
 		boolean seguir = true;
 		Comando comando = null;

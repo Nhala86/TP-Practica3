@@ -59,32 +59,11 @@ public class Controlador {
 	 * @return un string del comando correcto
 	 */
     private String[] crearComando(Scanner in){
-    	String[] palabras = null;
 		System.out.print("Comando > ");
 		String string = in.nextLine();
 		String stringlower = string.toLowerCase();
-		palabras = stringlower.split(" ");
-		if(palabras.length == 3){ // Protege de que el usuario meta chorradas junto con el comando o meta una fila y columna incorrecta
-			try{
-				int a = Integer.parseInt(palabras[1]);
-				int b = Integer.parseInt(palabras[2]);
-				if(!this.validarDatos(a, b)){
-					System.out.println("Los valores definidos no son validos");
-					//throw ExcepcionDeRango();
-				}
-			}catch(NumberFormatException e){
-				System.out.println("Error de formato en los valores de fila y/o columna");
-			}
-			/*
-			catch(ExcepcionDeRango ex){
-				System.out.println("Los valores definidos no son validos");
-				palabras = crearComando(in);
-			}
-			*/
-			
-		}
+		String[] palabras = stringlower.split(" ");
 		return  palabras;
-    	
     }
     
     /**
@@ -92,35 +71,33 @@ public class Controlador {
      * y encargado de llamar a las funciones en otras clases para mostrar por pantalla el juego y sus movimientos
      * @throws IOException para evitar los errores del cargado y el guardado
      */
-
 	public void realizaSimulacion(){
 		System.out.println("Bienvenido al juego de la vida: ");
 		String mensaje = "";
 		while (!this.simulacionTerminada){
 			System.out.println(mundo.toStringBuffer());
 			String [] palabras = crearComando(this.in);			
-			Comando comando = ParserComandos.parseaComando(palabras);
-
-			if (comando != null){
-				try {
-					mensaje = comando.ejecuta(this);
-				} catch (IndicesFueraDeRango e) {
-					System.out.println(e.getMessage());
-					e.printStackTrace();
-				} catch (PalabraIncorrecta e) {
-					System.out.println(e.getMessage());
-					e.printStackTrace();
-				} catch (FormatoNumericoIncorrecto e) {
-					System.out.println(e.getMessage());
-					e.printStackTrace();
-				} catch (ErrorDeInicializacion e) {
-					System.out.println(e.getMessage());
-					e.printStackTrace();
-				}
+			try {
+				Comando comando = ParserComandos.parseaComando(palabras);
+				if (comando != null){
+				mensaje = comando.ejecuta(this);
+				//Movido para que solo muestre este mensaje si no hay excepciones
 				System.out.println(mensaje);
+				} 
+				else {
+					System.out.println("Comando desconocido (Escriba AYUDA para infomarse de los comandos disponibles)");
+				}
 			}
-			else {
-				System.out.println("Comando desconocido (Escriba AYUDA para infomarse de los comandos disponibles)");
+			//Habra que quitar uno de los 2, o el println o printStackTrace
+			catch (IndicesFueraDeRango e) {
+				System.out.println(e.getMessage());
+				//e.printStackTrace();
+			}catch (FormatoNumericoIncorrecto e) {
+				System.out.println(e.getMessage());
+				//e.printStackTrace();
+			} catch (ErrorDeInicializacion e) {
+				System.out.println(e.getMessage());
+				//e.printStackTrace();
 			}
 		}	
 	}
@@ -144,23 +121,22 @@ public class Controlador {
 			}
 			else {
 				entrada.close();
-				throw new PalabraIncorrecta();
+				throw new PalabraIncorrecta("La palabra que encabeza el fichero no es ni simple ni complejo");
 			}
 			mundo.cargar(entrada);
 			entrada.close();
+			System.out.println("Carga realizada con exito");
 		} catch (FileNotFoundException e) {
-			System.out.println("El nombre del fichero especificado no existe" + System.getProperty("line.separator"));
-			e.printStackTrace();
+			System.out.println("El nombre del fichero especificado no existe");
+			//e.printStackTrace();
 		}
 		catch(PalabraIncorrecta e){
-			System.out.println("La palabra que encabeza el fichero no es ni simple ni complejo" + System.getProperty("line.separator"));
+			System.out.println(e.getMessage());
 		}
-		System.out.println("Carga realizada con exito");
-		
 	}
 	
 	public void guardar(String nombreFichero){
-		File archivo = new File(nombreFichero + ".txt");
+		File archivo = new File(nombreFichero);
 		FileWriter escribir;
 		try {
 			escribir = new FileWriter(archivo);
@@ -179,42 +155,6 @@ public class Controlador {
 		}
 		System.out.println("Partida guardada correctamente");
 	}
-	
-		/*
-		int fila = entrada.nextInt(), columna = entrada.nextInt();
-			//Mundo mundo = new Mundo(fila, columna);
-			if (this.filas == fila && this.columnas == columna){
-				for (int i=0; i < fila; i++){
-					for (int j=0; j < columna; j++){
-						String cadena = entrada.next();
-						if (!cadena.equals("-")){
-							//Crear nueva celula
-							String [] posicion = cadena.split("-");
-							if (posicion.length == 1){
-								int explota = Integer.parseInt(cadena);
-								this.superficie[i][j] = new CelulaCompleja(explota);
-							}
-							else{
-								int SinMover = Integer.parseInt(posicion[0]);
-								int Reproduccion = Integer.parseInt(posicion[1]);
-								this.superficie[i][j] = new CelulaSimple (SinMover, Reproduccion);
-							}
-						}
-						else {
-							vaciarCasilla(i, j);
-						}
-					}
-				}
-			}
-			
-			else {
-				System.out.println("La dimension del tablero del juego a cargar no es correcta, ajuste la dimension y vuelva a intentarlo"
-						+ System.getProperty("line.separator"));
-			}
-			entrada.close();
-			System.out.println("Partida cargada correctamente" + System.getProperty("line.separator"));
-		}
-		*/
 
 	public String daUnPaso() {
 		return this.mundo.evoluciona();
@@ -250,6 +190,8 @@ public class Controlador {
 	 */
 	public int getComando(){
 		int comando = in.nextInt();
+		//Limpio el scanner despues de leer el entero
+		in.nextLine();
 		return comando;
 	}
 
