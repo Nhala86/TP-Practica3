@@ -117,8 +117,6 @@ public abstract class Mundo{
 	public boolean eliminarCelulaSuperficie(int f, int c){
 		return superficie.vaciarCasilla(f,c);
 	}
-
-	
 	
 	/**
 	 * Se encarga de guardar las dimensiones del tablero y luego todo el tablero con el estado actual del juego en juego.txt
@@ -147,9 +145,7 @@ public abstract class Mundo{
 			}
 		}
 		return valido;
-	}
-	
-	
+	}	
 
 	/**
 	 * Metodo que llama a cargar un string de un fichero de Superficie
@@ -158,6 +154,11 @@ public abstract class Mundo{
 	 * @throws IOException para evitar los errores del guardado y cargado
 	 */
 	public abstract void cargar(Scanner entrada)throws PalabraIncorrecta;
+	
+	/**
+	 * Metodo abstracto que dice si un mundo es simple o complejo
+	 * @return true si es simple o false si es complejo
+	 */
 	public abstract boolean esSimple();
 	
 	

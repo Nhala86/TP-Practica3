@@ -71,6 +71,7 @@ public class CelulaCompleja implements Celula {
 	public String toStringBuffer() {
 		return (" " + this.explota + " ");
 	}
+	
 	@Override
 	public boolean esComestible() {
 		return false;

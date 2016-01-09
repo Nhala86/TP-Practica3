@@ -17,7 +17,7 @@ public class CelulaSimple implements Celula {
 	 */
 	public CelulaSimple(){
 		this.pasosSinMover = MAX_PASOS_SIN_MOVER;
-		this.pasosReproduccion =PASOS_REPRODUCCION;
+		this.pasosReproduccion = PASOS_REPRODUCCION;
 	}
 	/**
 	 * Constructor de una CelulaSimple con argumentos
@@ -28,10 +28,10 @@ public class CelulaSimple implements Celula {
 		this.pasosSinMover = SinMover;
 		this.pasosReproduccion = Reproduccion;
 	}
-	
+		
 	@Override
 	public CasillaMensaje ejecutaMovimiento(int f, int c, Superficie superficie){
-		Casilla casillaMovimiento;
+		Casilla casillaMovimiento;		
 		CasillaMensaje casillaMensaje;
 		if (this.pasosSinMover != 0){
 			int cont = 0;
@@ -53,10 +53,10 @@ public class CelulaSimple implements Celula {
 					else if (nc == superficie.getColumnas()){
 						nc = 0;
 					}
-					if(superficie.casillaVacia(nf,nc)){
+					if (superficie.casillaVacia(nf,nc)){
 						casilla[cont] = new Casilla(nf, nc);
 						cont++;
-					}	
+					}
 			 	}
 			}
 			//Indica que no hay casillas vacias, por lo que no se puede mover
@@ -84,7 +84,7 @@ public class CelulaSimple implements Celula {
 							+ System.getProperty("line.separator") + "Nace nueva celula simple en (" + f + "," + c + ")" + " cuyo padre ha sido (" + k + "," + l + ")");
 				}
 				else {
-					casillaMensaje = new CasillaMensaje (null, "Movimiento de celula simple de (" + f + "," + c + ") a (" + k + "," + l + ")");
+					casillaMensaje = new CasillaMensaje (casillaMovimiento, "Movimiento de celula simple de (" + f + "," + c + ") a (" + k + "," + l + ")");
 					superficie.moverCelula(k, l, f, c);
 				}
 			}
@@ -119,9 +119,5 @@ public class CelulaSimple implements Celula {
 	@Override
 	public String guardar() {
 		return "simple " + this.pasosReproduccion + " " + this.pasosSinMover;
-	}
-	
-	
-	
-	
+	}	
 }

@@ -74,6 +74,7 @@ public class Controlador {
 	public void realizaSimulacion(){
 		System.out.println("Bienvenido al juego de la vida: ");
 		String mensaje = "";
+		Mundo mundoAntiguo = this.mundo;
 		while (!this.simulacionTerminada){
 			System.out.println(mundo.toStringBuffer());
 			String [] palabras = crearComando(this.in);			
@@ -88,24 +89,31 @@ public class Controlador {
 					System.out.println("Comando desconocido (Escriba AYUDA para infomarse de los comandos disponibles)");
 				}
 			}
-			//Habra que quitar uno de los 2, o el println o printStackTrace
 			catch (IndicesFueraDeRango e) {
 				System.out.println(e.getMessage());
-				//e.printStackTrace();
+				
 			}catch (FormatoNumericoIncorrecto e) {
 				System.out.println(e.getMessage());
-				//e.printStackTrace();
+				
 			} catch (ErrorDeInicializacion e) {
-				System.out.println(e.getMessage());
-				//e.printStackTrace();
+				System.out.println(e.getMessage());				
+				this.mundo = mundoAntiguo;
 			}
 		}	
 	}
 	
+	/**
+	 * Metodo que inicializa juego inicializando el mundo 
+	 * @param mundo matriz de la superficie
+	 */
 	public void juega(Mundo mundo){
 		this.mundo = mundo;
 	}
 	
+	/**
+	 * Metodo que carga un fichero de texto de una partida guardada anteriormente con el mundo que se estaba jugando 
+	 * @param nombreFichero string de la superficie guardada
+	 */
 	public void cargar(String nombreFichero){
 		String nombre = nombreFichero;
 		File archivo = new File(nombre);
@@ -128,13 +136,17 @@ public class Controlador {
 			System.out.println("Carga realizada con exito");
 		} catch (FileNotFoundException e) {
 			System.out.println("El nombre del fichero especificado no existe");
-			//e.printStackTrace();
+			
 		}
 		catch(PalabraIncorrecta e){
 			System.out.println(e.getMessage());
 		}
 	}
 	
+	/**
+	 * Metodo que guarda una partida completa en un fichero de texto
+	 * @param nombreFichero string del mundo
+	 */
 	public void guardar(String nombreFichero){
 		File archivo = new File(nombreFichero);
 		FileWriter escribir;
@@ -156,6 +168,10 @@ public class Controlador {
 		System.out.println("Partida guardada correctamente");
 	}
 
+	/**
+	 * Metodo que llama a evoluciona de mundo para realizar el paso
+	 * @return string del mundo evolucionado
+	 */
 	public String daUnPaso() {
 		return this.mundo.evoluciona();
 	}
@@ -167,19 +183,45 @@ public class Controlador {
 		this.simulacionTerminada = true;
 	}
 	
+	/**
+	 * metodo que llama al vaciar del mundo
+	 */
 	public void vaciar(){
 		this.mundo.vaciar();
 	}
+	
+	/**
+	 * Metodo que inicializa el mundo
+	 */
 	public void generarCelulas(){
 		this.mundo.inicializaMundo();
 	}
+	
+	/**
+	 * Metodo que elimina una celula de la superficie
+	 * @param f numero entero positivo de la fila
+	 * @param c numero entero positivo de la columna
+	 * @return true si se ha eliminado una celula de la superficie y false si no lo ha hecho
+	 */
 	public boolean eliminarCelulaSuperficie(int f, int c){
 		return this.mundo.eliminarCelulaSuperficie(f,c);
 	}
+	
+	/**
+	 * Metodo que crea una celula simple o compleja segun haya sido elegida
+	 * @param f numero entero positivo de la fila
+	 * @param c numero entero positivo de la columna
+	 * @param celula la celula simple o compleja segun sea
+	 * @return true si se ha creado una celula de la superficie y false si no lo ha hecho
+	 */
 	public boolean crearCelulaSuperficie(int f, int c, Celula celula){
 		return this.mundo.crearCelulaSuperficie(f,c,celula);
 	}
 
+	/**
+	 * Metodo que dice si el mundo es simple o complejo
+	 * @return true si el mundo es simple o false si es complejo
+	 */
 	public boolean esSimple(){
 		return mundo.esSimple();
 	}
@@ -193,11 +235,7 @@ public class Controlador {
 		//Limpio el scanner despues de leer el entero
 		in.nextLine();
 		return comando;
-	}
-
-	
-	
-	
+	}	
 	
 }
 		

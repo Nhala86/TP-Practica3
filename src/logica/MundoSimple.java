@@ -9,12 +9,20 @@ import excepciones.PalabraIncorrecta;
 public class MundoSimple extends Mundo {
 	private int simples;
 	
-	
+	/**
+	 * 
+	 */
 	public MundoSimple(){
 		super();
 		this.simples = 0;
 	}
 	
+	/**
+	 * 
+	 * @param f
+	 * @param c
+	 * @param simples
+	 */
 	public MundoSimple(int f,int c, int simples){
 		super(f,c);
 		this.simples = simples;
@@ -53,7 +61,4 @@ public class MundoSimple extends Mundo {
 	public boolean esSimple() {
 		return true;
 	}
-
-	
-
 }

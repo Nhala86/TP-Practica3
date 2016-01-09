@@ -10,12 +10,22 @@ public class MundoComplejo extends Mundo {
 	private int complejas;
 	private int simples;
 	
+	/**
+	 * Metodo constructor que inicializa las simples y complejas a cero
+	 */
 	public MundoComplejo(){
 		super();
 		this.simples = 0;
 		this.complejas = 0;
 	}
 	
+	/**
+	 * Metodo constructor 
+	 * @param f
+	 * @param c
+	 * @param simples
+	 * @param complejas
+	 */
 	public MundoComplejo(int f, int c, int simples, int complejas){
 		super(f,c);
 		this.simples = simples;

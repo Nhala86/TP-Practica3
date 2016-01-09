@@ -28,7 +28,17 @@ public interface Celula {
 	 * @return la matriz con las celulas simples y complejas
 	 */
 	String toStringBuffer();
+	
+	/**
+	 * Metodo que carga las celulas en la superficie de un fichero de texto guardado
+	 * @param entrada del fichero cargado
+	 */
 	void cargar(Scanner entrada);
+	
+	/**
+	 * Metodo que guarda las celulas de una partida en un fichero de texto
+	 * @return strind de cada celula en su posicion
+	 */
 	String guardar();
 	
 }

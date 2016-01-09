@@ -97,12 +97,6 @@ public class Superficie{
 	}
 
 	/**
-	* Metodo que genera una celula nueva si la casilla esta vacia
-	* @param f valor entero positivo acotado en un rango valido del numero de filas
-	* @param c valor entero positivo acotado en un rango valido del numero de columnas
-	* @return TRUE si lleno la casilla. FALSE para el caso contrario
-	*/
-	/**
 	 * Metodo que genera una celula nueva si la casilla esta vacia
 	 * @param f valor entero positivo acotado en un rango valido del numero de filas
 	 * @param c valor entero positivo acotado en un rango valido del numero de columnas

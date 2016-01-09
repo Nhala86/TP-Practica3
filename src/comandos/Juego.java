@@ -11,9 +11,12 @@ import logica.MundoSimple;
 public class Juego implements Comando {
 	private Mundo mundo;
 	
-	public Juego(){
+	public Juego(){		
 	}
-	
+	/**
+	 * 
+	 * @param mundo
+	 */
 	public Juego(Mundo mundo){
 		this.mundo = mundo;
 	}

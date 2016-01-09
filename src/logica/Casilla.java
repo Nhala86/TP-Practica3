@@ -12,8 +12,7 @@ public class Casilla {
 	public Casilla(int nf,int nc){
 		this.nf = nf;
 		this.nc = nc;
-	}
-	
+	}	
 	
 	/**
 	 * Metodo que devuelve el numero de la fila donde se encuentra la casilla
@@ -29,7 +28,6 @@ public class Casilla {
 	 */
 	public int getColumna(){
 		return this.nc;
-	}
-	
+	}	
 	
 }
