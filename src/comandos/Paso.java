@@ -1,9 +1,6 @@
 package comandos;
 
-
-
 import controlador.Controlador;
-
 
 public class Paso implements Comando {
 

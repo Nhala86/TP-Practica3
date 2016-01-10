@@ -1,13 +1,9 @@
 package comandos;
 
-
 import controlador.Controlador;
 import excepciones.ErrorDeInicializacion;
 import excepciones.FormatoNumericoIncorrecto;
 import excepciones.IndicesFueraDeRango;
-
-
-
 
 public interface Comando {
 	

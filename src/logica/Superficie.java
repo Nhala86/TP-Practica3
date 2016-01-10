@@ -1,6 +1,5 @@
 package logica;
 
-
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -8,8 +7,6 @@ import celula.Celula;
 import celula.CelulaCompleja;
 import celula.CelulaSimple;
 import excepciones.PalabraIncorrecta;
-
-
 
 public class Superficie{
 	private Celula[][] superficie;
@@ -180,6 +177,10 @@ public class Superficie{
 		return celulas;
 	}
 
+	/**
+	 * Metodo que guarda la matriz de una partida
+	 * @return un string de mensaje en un fichero de texto
+	 */
 	public String guardar() {
 		String mensaje = "";
     	for(int i = 0; i < this.filas; i++){

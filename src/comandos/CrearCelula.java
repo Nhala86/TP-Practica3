@@ -87,9 +87,7 @@ public class CrearCelula implements Comando {
 		}
 		else comando = null;			
 		return comando;		
-	}
-	
-		
+	}		
 
 	@Override
 	public String textoAyuda() {

@@ -11,11 +11,15 @@ import logica.MundoSimple;
 public class Juego implements Comando {
 	private Mundo mundo;
 	
+	/**
+	 * Metodo constructor que inicializa a vacio
+	 */
 	public Juego(){		
 	}
+	
 	/**
-	 * 
-	 * @param mundo
+	 * Metodo constructor generico que inicializa el mundo
+	 * @param mundo string de la matriz del mundo
 	 */
 	public Juego(Mundo mundo){
 		this.mundo = mundo;
@@ -82,7 +86,5 @@ public class Juego implements Comando {
 				System.getProperty("line.separator") + "JUGAR COMPLEJO F C S C: Inicia el juego con un tablero(F,C), celulas simples(S) "
 				+ "y celulas complejas (C) repartidas aleatoriamente en el") + System.getProperty("line.separator");
 	}
-
-
 
 }

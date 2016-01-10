@@ -19,6 +19,7 @@ public class CelulaSimple implements Celula {
 		this.pasosSinMover = MAX_PASOS_SIN_MOVER;
 		this.pasosReproduccion = PASOS_REPRODUCCION;
 	}
+	
 	/**
 	 * Constructor de una CelulaSimple con argumentos
 	 * @param SinMover Numero de pasos que puede pasar la celula sin moverse
@@ -116,6 +117,7 @@ public class CelulaSimple implements Celula {
 		//while (entrada.hasNext()){	
 		
 	}
+	
 	@Override
 	public String guardar() {
 		return "simple " + this.pasosReproduccion + " " + this.pasosSinMover;

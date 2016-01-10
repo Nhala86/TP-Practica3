@@ -1,6 +1,5 @@
 package logica;
 
-
 import java.io.IOException;
 import java.lang.StringBuffer;
 import java.util.Scanner;
@@ -8,12 +7,10 @@ import java.util.Scanner;
 import celula.Celula;
 import excepciones.PalabraIncorrecta;
 
-
 public abstract class Mundo{
 	protected int filas;
 	protected int columnas;
 	protected Superficie superficie;
-
 		
 	/**
 	 * La clase constructor de Mundo, genera una superficie con una longitud

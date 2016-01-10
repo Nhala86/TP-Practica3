@@ -1,6 +1,5 @@
 package logica;
 
-
 import java.util.Scanner;
 
 import celula.CelulaSimple;
@@ -10,7 +9,7 @@ public class MundoSimple extends Mundo {
 	private int simples;
 	
 	/**
-	 * 
+	 * Metodo constructor generico que inicializa a cero las celulas simples 
 	 */
 	public MundoSimple(){
 		super();
@@ -18,10 +17,10 @@ public class MundoSimple extends Mundo {
 	}
 	
 	/**
-	 * 
-	 * @param f
-	 * @param c
-	 * @param simples
+	 * Metodo constructor que inicializa el mundo
+	 * @param f numero entero positivo de filas
+	 * @param c numero entero positivo de columnas
+	 * @param simples numero entero positivo de celulas simples
 	 */
 	public MundoSimple(int f,int c, int simples){
 		super(f,c);

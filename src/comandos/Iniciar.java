@@ -1,8 +1,6 @@
 package comandos;
 
-
 import controlador.Controlador;
-
 
 public class Iniciar implements Comando {
 	

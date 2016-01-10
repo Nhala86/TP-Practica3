@@ -11,7 +11,7 @@ public class MundoComplejo extends Mundo {
 	private int simples;
 	
 	/**
-	 * Metodo constructor que inicializa las simples y complejas a cero
+	 * Metodo constructor generico que inicializa las simples y complejas a cero
 	 */
 	public MundoComplejo(){
 		super();
@@ -20,11 +20,11 @@ public class MundoComplejo extends Mundo {
 	}
 	
 	/**
-	 * Metodo constructor 
-	 * @param f
-	 * @param c
-	 * @param simples
-	 * @param complejas
+	 * Metodo constructor que inicializa el mundo
+	 * @param f nuemro entero positivo de filas
+	 * @param c nuemro entero positivo de columnas
+	 * @param simples numero entero positivo de celulas simples
+	 * @param complejas numero entero positivo de celulas complejas
 	 */
 	public MundoComplejo(int f, int c, int simples, int complejas){
 		super(f,c);
