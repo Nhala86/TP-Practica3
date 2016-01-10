@@ -73,11 +73,11 @@ public class Controlador {
      */
 	public void realizaSimulacion(){
 		System.out.println("Bienvenido al juego de la vida: ");
-		String mensaje = "";
-		Mundo mundoAntiguo = this.mundo;
+		String mensaje = "";		
 		while (!this.simulacionTerminada){
 			System.out.println(mundo.toStringBuffer());
-			String [] palabras = crearComando(this.in);			
+			String [] palabras = crearComando(this.in);	
+			//Mundo mundoAntiguo = this.mundo;
 			try {
 				Comando comando = ParserComandos.parseaComando(palabras);
 				if (comando != null){
@@ -97,7 +97,7 @@ public class Controlador {
 				
 			} catch (ErrorDeInicializacion e) {
 				System.out.println(e.getMessage());				
-				this.mundo = mundoAntiguo;
+				//this.mundo = mundoAntiguo;
 			}
 		}	
 	}
