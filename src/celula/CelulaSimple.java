@@ -114,8 +114,6 @@ public class CelulaSimple implements Celula {
 		int reproduccion = entrada.nextInt(), sinMover = entrada.nextInt();
 		this.pasosReproduccion = reproduccion;
 		this.pasosSinMover = sinMover;
-		//while (entrada.hasNext()){	
-		
 	}
 	
 	@Override

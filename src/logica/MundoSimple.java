@@ -2,7 +2,10 @@ package logica;
 
 import java.util.Scanner;
 
+import celula.Celula;
+import celula.CelulaCompleja;
 import celula.CelulaSimple;
+import excepciones.IndicesFueraDeRango;
 import excepciones.PalabraIncorrecta;
 
 public class MundoSimple extends Mundo {
@@ -46,18 +49,46 @@ public class MundoSimple extends Mundo {
 		int f = entrada.nextInt(), c = entrada.nextInt();
 		this.filas = f;
 		this.columnas = c;
-		
 		this.superficie = new Superficie(this.filas, this.columnas);
-		/*
-		Si llamo a cargar por MundoSimple, no reconozca a las celulas complejas
-		Si la celula es simple, incrementamos el contador
-		*/
-		int[] celulas = superficie.cargar(entrada, false);
-		this.simples = celulas[0];
+		while (entrada.hasNext()){
+			int filas = entrada.nextInt(), columnas = entrada.nextInt();
+			String tipo = entrada.next();
+			if (tipo.equalsIgnoreCase("simple")){
+				Celula celula = new CelulaSimple();
+				celula.cargar(entrada);
+				superficie.llenarCasilla(filas, columnas, celula);
+				this.simples++;
+			}
+			else {
+				throw new PalabraIncorrecta("La palabra que hay no es simple");
+			}
+		}
+		
+		
+		
+	}
+
+
+
+	@Override
+	public String crearCelula(int f, int c, Scanner in){
+		Celula celula;
+		String mensaje;
+		celula = new CelulaSimple();
+		if (superficie.llenarCasilla(f, c, celula)){
+			mensaje = "Creamos la celula " + "simple" + " en: (" + f + "," + 
+					c + ")";
+		}
+		else {
+			mensaje = "Error, la posicion indicada esta ocupada";
+		}
+		return mensaje;
 	}
 
 	@Override
-	public boolean esSimple() {
-		return true;
+	public String guardar() {
+		String mensaje = "simple" + System.getProperty("line.separator") + this.filas + System.getProperty("line.separator") + this.columnas + System.getProperty("line.separator");
+		mensaje += superficie.guardar();
+		return mensaje;
 	}
 }

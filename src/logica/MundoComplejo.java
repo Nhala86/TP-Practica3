@@ -2,8 +2,10 @@ package logica;
 
 import java.util.Scanner;
 
+import celula.Celula;
 import celula.CelulaCompleja;
 import celula.CelulaSimple;
+import excepciones.IndicesFueraDeRango;
 import excepciones.PalabraIncorrecta;
 
 public class MundoComplejo extends Mundo {
@@ -59,18 +61,70 @@ public class MundoComplejo extends Mundo {
 	public void cargar(Scanner entrada)throws PalabraIncorrecta {
 		int f = entrada.nextInt();
 		int c = entrada.nextInt();
-		int[] celulas;
+		Celula celula;
 		this.filas = f;
 		this.columnas = c;
 		this.superficie = new Superficie(this.filas, this.columnas);
-		celulas = superficie.cargar(entrada, true);
-		this.simples = celulas[0];
-		this.complejas = celulas[1];
+		while (entrada.hasNext()){
+			int filas = entrada.nextInt(), columnas = entrada.nextInt();
+			String tipo = entrada.next();
+			if (tipo.equalsIgnoreCase("simple")){
+				celula = new CelulaSimple();
+				celula.cargar(entrada);
+				superficie.llenarCasilla(filas, columnas, celula);
+				this.simples++;
+			}
+			else if (tipo.equalsIgnoreCase("compleja")){
+				celula = new CelulaCompleja();
+				celula.cargar(entrada);
+				superficie.llenarCasilla(filas, columnas, celula);
+				this.complejas++;
+			}
+			else {
+				throw new PalabraIncorrecta("La palabra que hay no es ni simple ni compleja incorrecta");
+			}
+	    	
+		}
+		
+	}
+
+
+	@Override
+	public String crearCelula(int f, int c, Scanner in)throws IndicesFueraDeRango{
+		String mensaje, palabra;
+		Celula celula;
+			
+		System.out.print("De que tipo: Compleja (1) o Simple (2): ");
+		int comando = in.nextInt();
+		//Limpio el scanner despues de leer el entero
+		in.nextLine();
+			if (comando == 1){
+				celula = new CelulaCompleja();
+				palabra = "compleja";
+			}
+			else if (comando == 2){
+				celula = new CelulaSimple();
+				palabra = "simple";
+			}
+			else {
+				throw new IndicesFueraDeRango("No has introducido un 1 o un 2");
+			}
+			if (superficie.llenarCasilla(f, c, celula)){
+				mensaje = "Creamos la celula " + palabra + " en: (" + f + "," + 
+						c + ")";
+			}
+			else {
+				throw new IndicesFueraDeRango("La celula no se puede crear");
+			}
+			return mensaje;
+		
 	}
 
 	@Override
-	public boolean esSimple() {
-		return false;
+	public String guardar() {
+		String mensaje = "complejo" + System.getProperty("line.separator") + this.filas + System.getProperty("line.separator") + this.columnas + System.getProperty("line.separator");
+		mensaje += superficie.guardar();
+		return mensaje;
 	}
 
 

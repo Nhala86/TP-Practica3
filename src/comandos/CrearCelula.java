@@ -33,40 +33,13 @@ public class CrearCelula implements Comando {
 	@Override
 	public String ejecuta(Controlador controlador) throws FormatoNumericoIncorrecto,
 			IndicesFueraDeRango{
-		String mensaje, palabra;
 		if(controlador.validarDatos(this.fila, this.columna)){
-			Celula celula;
-			if (controlador.esSimple()){
-				celula = new CelulaSimple();
-				palabra = "simple";
-			}
-			else {
-				System.out.print("De que tipo: Compleja (1) o Simple (2): ");
-				int comando = controlador.getComando();
-				if (comando == 1){
-					celula = new CelulaCompleja();
-					palabra = "compleja";
-				}
-				else if (comando == 2){
-					celula = new CelulaSimple();
-					palabra = "simple";
-				}
-				else {
-					throw new IndicesFueraDeRango("No has introducido un 1 o un 2");
-				}
-			}
-			if (controlador.crearCelulaSuperficie(this.fila, this.columna, celula)){
-				mensaje = "Creamos la celula " + palabra + " en: (" + this.fila + "," + 
-						this.columna + ")";
-			}
-			else {
-				mensaje = "Error, la posicion indicada esta ocupada";
-			}
+			controlador.crearCelula(this.fila, this.columna);
 		}
 		else {
 		throw new IndicesFueraDeRango("Los parametros pasados son incorrectos, la posicion no existe en el tablero" );
 		}
-		return mensaje;
+		return "";
 	}
 
 	@Override

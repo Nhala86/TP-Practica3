@@ -152,13 +152,7 @@ public class Controlador {
 		FileWriter escribir;
 		try {
 			escribir = new FileWriter(archivo);
-			if (mundo.esSimple()){
-				escribir.append("simple");
-			}
-			else {
-				escribir.append("complejo");
-			}
-			escribir.append(System.getProperty("line.separator"));
+			
 			escribir.append(mundo.guardar());
 			escribir.close();
 		} catch (IOException e) {
@@ -218,25 +212,29 @@ public class Controlador {
 		return this.mundo.crearCelulaSuperficie(f,c,celula);
 	}
 
-	/**
-	 * Metodo que dice si el mundo es simple o complejo
-	 * @return true si el mundo es simple o false si es complejo
-	 */
-	public boolean esSimple(){
-		return mundo.esSimple();
-	}
+	
 	
 	/**
 	 * Permite recoger un comando numerico del Scanner ya abierto sin tener que abrirlo de nuevo 
 	 * @return Un entero recogido del Scanner
 	 */
 	public int getComando(){
+		System.out.print("De que tipo: Compleja (1) o Simple (2): ");
 		int comando = in.nextInt();
 		//Limpio el scanner despues de leer el entero
 		in.nextLine();
 		return comando;
 	}	
-	
+	public void crearCelula(int fila,int columna){
+		try{
+			System.out.println(mundo.crearCelula(fila, columna,this.in));
+		}
+		catch(IndicesFueraDeRango e){
+			System.out.println(e.getMessage());
+		}
+			
+		
+	}
 }
 		
 		

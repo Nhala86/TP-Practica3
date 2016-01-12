@@ -1,8 +1,12 @@
 package excepciones;
 
-@SuppressWarnings("serial")
+
 public class IndicesFueraDeRango extends Throwable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public IndicesFueraDeRango(){
 		super();
 	}

@@ -5,6 +5,7 @@ import java.lang.StringBuffer;
 import java.util.Scanner;
 
 import celula.Celula;
+import excepciones.IndicesFueraDeRango;
 import excepciones.PalabraIncorrecta;
 
 public abstract class Mundo{
@@ -32,14 +33,12 @@ public abstract class Mundo{
 		this.filas = f;
 		this.columnas = c;
 		this.superficie = new Superficie(this.filas, this.columnas);
-		//No me convence hacer esta llamada inutil
-		inicializaMundo();
 	}
 	/**
 	 * Metodo que aleatoriamente coloca las celulas en las casillas, inializando la superficie
 	 */	
 	public abstract void inicializaMundo();
-		
+	public abstract String crearCelula(int f, int c, Scanner in) throws IndicesFueraDeRango;
 	
 	/**
 	 * Metodo String que llama a la clase Superficie para generar la matriz del juego
@@ -121,11 +120,7 @@ public abstract class Mundo{
 	 * @return un fichero de texto con el Mundo guardado
 	 * @throws IOException  para evitar los errores del guardado y el cargado
 	 */
-	public String guardar(){
-		String mensaje = this.filas + System.getProperty("line.separator") + this.columnas + System.getProperty("line.separator");
-		mensaje += superficie.guardar();
-		return mensaje;
-	}	
+	public abstract String guardar();
 	
 	/**
 	 * Metodo que valida que los valores de fila y columna que pasa el usuario son validos
@@ -152,11 +147,7 @@ public abstract class Mundo{
 	 */
 	public abstract void cargar(Scanner entrada)throws PalabraIncorrecta;
 	
-	/**
-	 * Metodo abstracto que dice si un mundo es simple o complejo
-	 * @return true si es simple o false si es complejo
-	 */
-	public abstract boolean esSimple();
+	
 	
 	
 }

@@ -148,34 +148,6 @@ public class Superficie{
 		return superficie[i][j].esComestible();
 	}
 	
-	/**
-	 * Abre el fichero juego.txt, carga las dimensiones del tablero del fichero y las celulas que habia en un nuevo mundo
-	 * @param in pasa los controles ya inicializados
-	 * @return El nuevo mundo que hemos cargado del fichero
-	 * @throws IOException para evitar errores de cargado y guardado
-	 */
-	public int[] cargar(Scanner entrada, boolean complejo)throws PalabraIncorrecta{
-		//celulas[0] = celulas simples, celulas[1] = celulas complejas
-		int[] celulas = {0,0};
-		//Mientras que no llegue al final del archivo
-		while (entrada.hasNext()){
-			int f = entrada.nextInt(), c = entrada.nextInt();
-			String tipo = entrada.next();
-			if (tipo.equalsIgnoreCase("simple")){
-				this.superficie[f][c] = new CelulaSimple();
-				celulas[0]++;
-			}
-			else if (tipo.equalsIgnoreCase("compleja") && complejo){
-				this.superficie[f][c] = new CelulaCompleja();
-				celulas[1]++;
-			}
-			else {
-				throw new PalabraIncorrecta("La palabra que hay no es ni simple ni compleja incorrecta");
-			}
-	    	superficie[f][c].cargar(entrada);
-		}
-		return celulas;
-	}
 
 	/**
 	 * Metodo que guarda la matriz de una partida

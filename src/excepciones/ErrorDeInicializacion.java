@@ -1,8 +1,13 @@
 package excepciones;
 
-@SuppressWarnings("serial")
+
 public class ErrorDeInicializacion extends Throwable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ErrorDeInicializacion(){
 		super();
 	}
