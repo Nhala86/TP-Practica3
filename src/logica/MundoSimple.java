@@ -45,9 +45,8 @@ public class MundoSimple extends Mundo {
 
 	@Override
 	public void cargar(Scanner entrada)throws PalabraIncorrecta, FormatoNumericoIncorrecto{
-		int cont = 1;
-		try{
-			cont++;
+		int cont = 2;
+		try{			
 			this.filas = Integer.parseInt(entrada.nextLine());
 			cont++;
 			this.columnas = Integer.parseInt(entrada.nextLine());
