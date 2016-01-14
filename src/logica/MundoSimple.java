@@ -48,17 +48,14 @@ public class MundoSimple extends Mundo {
 		int cont = 2;
 		try{			
 			this.filas = Integer.parseInt(entrada.nextLine());
-			cont++;
+			cont++; // aumenta el numero de linea
 			this.columnas = Integer.parseInt(entrada.nextLine());
-			this.superficie = new Superficie(this.filas, this.columnas);
-			
+			this.superficie = new Superficie(this.filas, this.columnas);			
 			while (entrada.hasNext()){
 				cont++;
-				String[] datos = entrada.nextLine().split(" ");
-				
+				String[] datos = entrada.nextLine().split(" ");				
 				int posFilas = Integer.parseInt(datos[0]);
-				int posColumnas = Integer.parseInt(datos[1]);
-				
+				int posColumnas = Integer.parseInt(datos[1]);				
 				if (datos[2].equalsIgnoreCase("simple") && datos.length == 5){
 					Celula celula = new CelulaSimple();
 					celula.cargar(datos);					

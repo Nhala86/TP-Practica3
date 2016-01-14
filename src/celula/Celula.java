@@ -28,10 +28,10 @@ public interface Celula {
 	String toStringBuffer();
 	
 	/**
-	 * Metodo que carga las celulas en la superficie de un fichero de texto guardado
-	 * @param entrada del fichero cargado
-	 * @throws FormatoNumericoIncorrecto 
-	 */
+	 * Metodo de cargado de celulas desde un fichero
+	 * @param datos array de string de datos
+	 * @throws FormatoNumericoIncorrecto si el dato que entra por fichero no es un numero entero devuelve una excepción
+	 */	 
 	void cargar(String[] datos) throws FormatoNumericoIncorrecto;
 	
 	/**

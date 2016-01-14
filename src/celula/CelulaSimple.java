@@ -108,6 +108,7 @@ public class CelulaSimple implements Celula {
 	public boolean esComestible() {
 		return true;
 	}
+	
 	@Override
 	public void cargar(String[] datos) throws FormatoNumericoIncorrecto{
 		try{

@@ -61,7 +61,7 @@ public class MundoComplejo extends Mundo {
 	@Override
 	public void cargar(Scanner entrada)throws PalabraIncorrecta, FormatoNumericoIncorrecto {
 		Celula celula;
-		int cont = 2;
+		int cont = 2; // se inicializa a dos para que coincida con el numero de fila de la superficie a cargar
 		try{			
 			this.filas = Integer.parseInt(entrada.nextLine());
 			cont++;
@@ -69,11 +69,9 @@ public class MundoComplejo extends Mundo {
 			this.superficie = new Superficie(this.filas, this.columnas);
 			while (entrada.hasNext()){
 				cont++;
-				String[] datos = entrada.nextLine().split(" ");
-				
+				String[] datos = entrada.nextLine().split(" ");				
 				int posFilas = Integer.parseInt(datos[0]);
-				int posColumnas = Integer.parseInt(datos[1]);	
-				
+				int posColumnas = Integer.parseInt(datos[1]);					
 				if (datos[2].equals("simple") && datos.length == 5){
 					celula = new CelulaSimple();
 					celula.cargar(datos);
@@ -97,8 +95,7 @@ public class MundoComplejo extends Mundo {
 		}
 		
 	}
-
-
+	
 	@Override
 	public String crearCelula(int f, int c, Scanner in)throws IndicesFueraDeRango{
 		String mensaje, palabra;
@@ -126,8 +123,7 @@ public class MundoComplejo extends Mundo {
 			else {
 				throw new IndicesFueraDeRango("La celula no se puede crear");
 			}
-			return mensaje;
-		
+			return mensaje;		
 	}
 
 	@Override
@@ -136,6 +132,5 @@ public class MundoComplejo extends Mundo {
 		mensaje += superficie.guardar();
 		return mensaje;
 	}
-
 
 }

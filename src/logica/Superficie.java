@@ -140,8 +140,7 @@ public class Superficie{
 	 */
 	public boolean esComestible(int i, int j) {
 		return superficie[i][j].esComestible();
-	}
-	
+	}	
 
 	/**
 	 * Metodo que guarda la matriz de una partida

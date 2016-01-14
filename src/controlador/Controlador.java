@@ -98,7 +98,7 @@ public class Controlador {
 			}catch (NullPointerException e){
 				System.out.println("Comando desconocido (Escriba AYUDA para infomarse de los comandos disponibles)");
 			}catch(PalabraIncorrecta e){
-				System.out.println(e.Informe());
+				System.out.println(e.Informe()); // Asi evitamos que se cargue el fichero sin la celula erronea y vuelve al mundo anterior
 				this.mundo = antiguo;
 			}
 		}	
@@ -113,10 +113,12 @@ public class Controlador {
 	}
 	
 	/**
-	 * Metodo que carga un fichero de texto de una partida guardada anteriormente con el mundo que se estaba jugando 
-	 * @param nombreFichero string de la superficie guardada
-	 * @throws FormatoNumericoIncorrecto 
+	 * Metodo de carga de un fichero que llama a la carga de mundo
+	 * @param nombreFichero string de un fichero de texto
+	 * @throws PalabraIncorrecta si no lee simple o complejo salta la excepción
+	 * @throws FormatoNumericoIncorrecto si el nombre del fichero es inesistente devuelve la excepcion
 	 */
+	 
 	public void cargar(String nombreFichero)throws PalabraIncorrecta, FormatoNumericoIncorrecto{
 		String nombre = nombreFichero;
 		try {
@@ -142,9 +144,10 @@ public class Controlador {
 	}
 	
 	/**
-	 * Metodo que guarda una partida completa en un fichero de texto
-	 * @param nombreFichero string del mundo
-	 */
+	 * Metodo de guardado de una partida en un fichero de texto
+	 * @param nombreFichero string del nombre del fichero de texto a guardar 
+	 * @throws IOException si no puede guardar la partida salta la excepcion
+	 */	 
 	public void guardar(String nombreFichero)throws IOException{
 		File archivo = new File(nombreFichero);
 		FileWriter escribir;
@@ -207,9 +210,7 @@ public class Controlador {
 	 */
 	public boolean crearCelulaSuperficie(int f, int c, Celula celula){
 		return this.mundo.crearCelulaSuperficie(f,c,celula);
-	}
-
-	
+	}	
 	
 	/**
 	 * Permite recoger un comando numerico del Scanner ya abierto sin tener que abrirlo de nuevo 
@@ -221,7 +222,13 @@ public class Controlador {
 		//Limpio el scanner despues de leer el entero
 		in.nextLine();
 		return comando;
-	}	
+	}
+	
+	/**
+	 * Metodo que llama al crearcelula de mundo
+	 * @param fila numero entero positivo de fila
+	 * @param columna numero entero positivo de columna
+	 */
 	public void crearCelula(int fila,int columna){
 		try{
 			System.out.println(mundo.crearCelula(fila, columna,this.in));

@@ -36,9 +36,18 @@ public abstract class Mundo{
 		this.superficie = new Superficie(this.filas, this.columnas);
 	}
 	/**
-	 * Metodo que aleatoriamente coloca las celulas en las casillas, inializando la superficie
-	 */	
+	 * Metodo abstracto que aleatoriamente coloca las celulas en las casillas, inializando la superficie
+	 */	 	
 	public abstract void inicializaMundo();
+	
+	/**
+	 * Metodo abstracto que carga la celula en la superficie del mundo
+	 * @param f Numero de filas que tiene la matriz
+	 * @param c Numero de columnas que tiene la matriz
+	 * @param in parametro de scanner
+	 * @return string de las celulas
+	 * @throws IndicesFueraDeRango excepcion que se produce cuando el numero de celulas no cabe en la matriz
+	 */
 	public abstract String crearCelula(int f, int c, Scanner in) throws IndicesFueraDeRango;
 	
 	/**
@@ -142,11 +151,11 @@ public abstract class Mundo{
 
 	/**
 	 * Metodo que llama a cargar un string de un fichero de Superficie
-	 * @param in le pasa los controles inicializados
-	 * @return un string de Mundo
-	 * @throws FormatoNumericoIncorrecto 
-	 * @throws IOException para evitar los errores del guardado y cargado
+	 * @param entrada le pasa la entrada de fichero
+	 * @throws PalabraIncorrecta si el numero de reproduccion o pasos sin mover de una celula es incorrecto salta la excepcion
+	 * @throws FormatoNumericoIncorrecto si la fila o columna no es un numero genera la excepcion
 	 */
+	
 	public abstract void cargar(Scanner entrada)throws PalabraIncorrecta, FormatoNumericoIncorrecto;
 	
 	
