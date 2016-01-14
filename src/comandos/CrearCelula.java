@@ -1,9 +1,5 @@
 package comandos;
 
-
-import celula.Celula;
-import celula.CelulaCompleja;
-import celula.CelulaSimple;
 import controlador.Controlador;
 import excepciones.ErrorDeInicializacion;
 import excepciones.FormatoNumericoIncorrecto;
@@ -31,13 +27,12 @@ public class CrearCelula implements Comando {
 	}
 
 	@Override
-	public String ejecuta(Controlador controlador) throws FormatoNumericoIncorrecto,
-			IndicesFueraDeRango{
+	public String ejecuta(Controlador controlador) throws FormatoNumericoIncorrecto,IndicesFueraDeRango{
 		if(controlador.validarDatos(this.fila, this.columna)){
 			controlador.crearCelula(this.fila, this.columna);
 		}
 		else {
-		throw new IndicesFueraDeRango("Los parametros pasados son incorrectos, la posicion no existe en el tablero" );
+			throw new IndicesFueraDeRango("Los parametros pasados son incorrectos, la posicion no existe en el tablero" );
 		}
 		return "";
 	}

@@ -1,8 +1,6 @@
 package celula;
 
-
-import java.util.Scanner;
-
+import excepciones.FormatoNumericoIncorrecto;
 import logica.CasillaMensaje;
 import logica.Superficie;
 
@@ -32,8 +30,9 @@ public interface Celula {
 	/**
 	 * Metodo que carga las celulas en la superficie de un fichero de texto guardado
 	 * @param entrada del fichero cargado
+	 * @throws FormatoNumericoIncorrecto 
 	 */
-	void cargar(Scanner entrada);
+	void cargar(String[] datos) throws FormatoNumericoIncorrecto;
 	
 	/**
 	 * Metodo que guarda las celulas de una partida en un fichero de texto

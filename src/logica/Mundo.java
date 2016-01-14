@@ -5,6 +5,7 @@ import java.lang.StringBuffer;
 import java.util.Scanner;
 
 import celula.Celula;
+import excepciones.FormatoNumericoIncorrecto;
 import excepciones.IndicesFueraDeRango;
 import excepciones.PalabraIncorrecta;
 
@@ -143,9 +144,10 @@ public abstract class Mundo{
 	 * Metodo que llama a cargar un string de un fichero de Superficie
 	 * @param in le pasa los controles inicializados
 	 * @return un string de Mundo
+	 * @throws FormatoNumericoIncorrecto 
 	 * @throws IOException para evitar los errores del guardado y cargado
 	 */
-	public abstract void cargar(Scanner entrada)throws PalabraIncorrecta;
+	public abstract void cargar(Scanner entrada)throws PalabraIncorrecta, FormatoNumericoIncorrecto;
 	
 	
 	

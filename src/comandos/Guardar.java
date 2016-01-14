@@ -1,9 +1,8 @@
 package comandos;
 
-
+import java.io.IOException;
 
 import controlador.Controlador;
-
 
 public class Guardar implements Comando {
 	private String fichero;
@@ -20,7 +19,7 @@ public class Guardar implements Comando {
 	}
 
 	@Override
-	public String ejecuta(Controlador controlador){
+	public String ejecuta(Controlador controlador) throws IOException{
 		controlador.guardar(this.fichero);
 		return "";
 	

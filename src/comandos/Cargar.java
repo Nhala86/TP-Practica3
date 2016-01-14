@@ -3,6 +3,8 @@ package comandos;
 
 
 import controlador.Controlador;
+import excepciones.FormatoNumericoIncorrecto;
+import excepciones.PalabraIncorrecta;
 
 
 public class Cargar implements Comando {
@@ -21,7 +23,7 @@ public class Cargar implements Comando {
 	}
 
 	@Override
-	public String ejecuta(Controlador controlador){
+	public String ejecuta(Controlador controlador) throws PalabraIncorrecta, FormatoNumericoIncorrecto{
 		controlador.cargar(this.fichero);
 		return "";
 	}

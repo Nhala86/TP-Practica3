@@ -69,35 +69,31 @@ public class Controlador {
     /**
      * Metodo encargado de los controles que el usuario introduce para el funcionamiento del juego
      * y encargado de llamar a las funciones en otras clases para mostrar por pantalla el juego y sus movimientos
+     * @throws PalabraIncorrecta 
      * @throws IOException para evitar los errores del cargado y el guardado
      */
-	public void realizaSimulacion(){
+	public void realizaSimulacion() throws IOException, PalabraIncorrecta{
 		System.out.println("Bienvenido al juego de la vida: ");
 		String mensaje = "";		
 		while (!this.simulacionTerminada){
 			System.out.println(mundo.toStringBuffer());
-			String [] palabras = crearComando(this.in);	
-			//Mundo mundoAntiguo = this.mundo;
+			String [] palabras = crearComando(this.in);				
 			try {
-				Comando comando = ParserComandos.parseaComando(palabras);
-				if (comando != null){
+				Comando comando = ParserComandos.parseaComando(palabras);				
 				mensaje = comando.ejecuta(this);
 				//Movido para que solo muestre este mensaje si no hay excepciones
-				System.out.println(mensaje);
-				} 
-				else {
-					System.out.println("Comando desconocido (Escriba AYUDA para infomarse de los comandos disponibles)");
-				}
-			}
-			catch (IndicesFueraDeRango e) {
+				System.out.println(mensaje);				
+			}catch (IndicesFueraDeRango e) {
 				System.out.println(e.getMessage());
 				
 			}catch (FormatoNumericoIncorrecto e) {
 				System.out.println(e.getMessage());
 				
-			} catch (ErrorDeInicializacion e) {
-				System.out.println(e.getMessage());				
-				//this.mundo = mundoAntiguo;
+			}catch (ErrorDeInicializacion e) {
+				System.out.println(e.getMessage());
+				
+			}catch (NullPointerException e){
+				System.out.println("Comando desconocido (Escriba AYUDA para infomarse de los comandos disponibles)");
 			}
 		}	
 	}
@@ -113,33 +109,31 @@ public class Controlador {
 	/**
 	 * Metodo que carga un fichero de texto de una partida guardada anteriormente con el mundo que se estaba jugando 
 	 * @param nombreFichero string de la superficie guardada
+	 * @throws FormatoNumericoIncorrecto 
 	 */
-	public void cargar(String nombreFichero){
+	public void cargar(String nombreFichero)throws PalabraIncorrecta, FormatoNumericoIncorrecto{
 		String nombre = nombreFichero;
-		File archivo = new File(nombre);
-		//No se porque tengo que meter todo en el try para que funcione
 		try {
+			FileReader archivo = new FileReader(nombre);
 			Scanner entrada = new Scanner(archivo);
 			String tipo = entrada.nextLine();
-			if (tipo.equalsIgnoreCase("simple")){
+			if (tipo.equals("simple")){
 				this.mundo = new MundoSimple();
 			}
-			else if (tipo.equalsIgnoreCase("complejo")){
+			else if (tipo.equals("complejo")){
 				this.mundo = new MundoComplejo();
 			}
 			else {
 				entrada.close();
-				throw new PalabraIncorrecta("La palabra que encabeza el fichero no es ni simple ni complejo");
+				throw new PalabraIncorrecta(1, "La palabra que encabeza el fichero no es ni simple ni complejo");
 			}
 			mundo.cargar(entrada);
 			entrada.close();
 			System.out.println("Carga realizada con exito");
 		} catch (FileNotFoundException e) {
-			System.out.println("El nombre del fichero especificado no existe");
-			
-		}
-		catch(PalabraIncorrecta e){
-			System.out.println(e.getMessage());
+			System.out.println("El nombre del fichero especificado no existe");					
+		}catch(PalabraIncorrecta e){
+			System.out.println(e.Informe());
 		}
 	}
 	
@@ -147,12 +141,11 @@ public class Controlador {
 	 * Metodo que guarda una partida completa en un fichero de texto
 	 * @param nombreFichero string del mundo
 	 */
-	public void guardar(String nombreFichero){
+	public void guardar(String nombreFichero)throws IOException{
 		File archivo = new File(nombreFichero);
 		FileWriter escribir;
 		try {
-			escribir = new FileWriter(archivo);
-			
+			escribir = new FileWriter(archivo);			
 			escribir.append(mundo.guardar());
 			escribir.close();
 		} catch (IOException e) {

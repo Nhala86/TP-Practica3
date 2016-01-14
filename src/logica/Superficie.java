@@ -1,12 +1,6 @@
 package logica;
 
-import java.io.IOException;
-import java.util.Scanner;
-
 import celula.Celula;
-import celula.CelulaCompleja;
-import celula.CelulaSimple;
-import excepciones.PalabraIncorrecta;
 
 public class Superficie{
 	private Celula[][] superficie;

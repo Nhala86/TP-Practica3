@@ -5,6 +5,7 @@ import java.util.Scanner;
 import celula.Celula;
 import celula.CelulaCompleja;
 import celula.CelulaSimple;
+import excepciones.FormatoNumericoIncorrecto;
 import excepciones.IndicesFueraDeRango;
 import excepciones.PalabraIncorrecta;
 
@@ -58,32 +59,37 @@ public class MundoComplejo extends Mundo {
 	}
 
 	@Override
-	public void cargar(Scanner entrada)throws PalabraIncorrecta {
-		int f = entrada.nextInt();
-		int c = entrada.nextInt();
+	public void cargar(Scanner entrada)throws PalabraIncorrecta, FormatoNumericoIncorrecto {
 		Celula celula;
-		this.filas = f;
-		this.columnas = c;
-		this.superficie = new Superficie(this.filas, this.columnas);
-		while (entrada.hasNext()){
-			int filas = entrada.nextInt(), columnas = entrada.nextInt();
-			String tipo = entrada.next();
-			if (tipo.equalsIgnoreCase("simple")){
-				celula = new CelulaSimple();
-				celula.cargar(entrada);
-				superficie.llenarCasilla(filas, columnas, celula);
-				this.simples++;
+		try{
+			this.filas = Integer.parseInt(entrada.nextLine());
+			this.columnas = Integer.parseInt(entrada.nextLine());
+			this.superficie = new Superficie(this.filas, this.columnas);
+			int cont = 3;
+			while (entrada.hasNext()){
+				cont++;
+				String[] datos = entrada.nextLine().split(" ");
+				int posFilas = Integer.parseInt(datos[0]);
+				int posColumnas = Integer.parseInt(datos[1]);	
+				
+				if (datos[2].equals("simple") && datos.length == 5){
+					celula = new CelulaSimple();
+					celula.cargar(datos);
+					superficie.llenarCasilla(posFilas, posColumnas, celula);
+					this.simples++;
+				}
+				else if (datos[2].equalsIgnoreCase("compleja")&& datos.length == 4){
+					celula = new CelulaCompleja();
+					celula.cargar(datos);
+					superficie.llenarCasilla(posFilas, posColumnas, celula);
+					this.complejas++;
+				}
+				else {
+					throw new PalabraIncorrecta(cont ,"La linea que define la celula esta corrupta");
+				}	    	
 			}
-			else if (tipo.equalsIgnoreCase("compleja")){
-				celula = new CelulaCompleja();
-				celula.cargar(entrada);
-				superficie.llenarCasilla(filas, columnas, celula);
-				this.complejas++;
-			}
-			else {
-				throw new PalabraIncorrecta("La palabra que hay no es ni simple ni compleja incorrecta");
-			}
-	    	
+		}catch (NumberFormatException e){
+			throw new FormatoNumericoIncorrecto ("Los valores de fila y/o columna de la superficie son incorrectos");
 		}
 		
 	}

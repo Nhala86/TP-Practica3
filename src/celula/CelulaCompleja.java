@@ -1,7 +1,6 @@
 package celula;
 
-import java.util.Scanner;
-
+import excepciones.FormatoNumericoIncorrecto;
 import logica.Casilla;
 import logica.CasillaMensaje;
 import logica.Superficie;
@@ -78,9 +77,12 @@ public class CelulaCompleja implements Celula {
 	}
 
 	@Override
-	public void cargar(Scanner entrada) {
-		int explota = entrada.nextInt();
-		this.explota = explota;
+	public void cargar(String[] datos) throws FormatoNumericoIncorrecto {
+		try{
+			this.explota = Integer.parseInt(datos[3]);
+		}catch(NumberFormatException e){
+			throw new FormatoNumericoIncorrecto(" la linea tiene parametros con formato erroneo");
+		}
 	}
 
 	@Override
