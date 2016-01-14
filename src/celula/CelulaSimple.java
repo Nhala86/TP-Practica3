@@ -114,7 +114,7 @@ public class CelulaSimple implements Celula {
 			this.pasosReproduccion = Integer.parseInt(datos[4]);
 			this.pasosSinMover = Integer.parseInt(datos[3]);
 		}catch(NumberFormatException e){
-			throw new FormatoNumericoIncorrecto(" la linea tiene parametros con formato erroneo");
+			throw new FormatoNumericoIncorrecto("La linea tiene parametros con formato erroneo");
 		}
 	}
 	

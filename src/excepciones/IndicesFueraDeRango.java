@@ -1,7 +1,7 @@
 package excepciones;
 
 
-public class IndicesFueraDeRango extends Throwable{
+public class IndicesFueraDeRango extends Exception{
 	
 	/**
 	 * 

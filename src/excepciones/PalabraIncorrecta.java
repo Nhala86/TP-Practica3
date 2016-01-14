@@ -1,7 +1,7 @@
 package excepciones;
 
 
-public class PalabraIncorrecta extends Throwable{
+public class PalabraIncorrecta extends Exception{
 
 	/**
 	 * 
@@ -24,13 +24,15 @@ public class PalabraIncorrecta extends Throwable{
 	}
 	
 	public String Informe(){
-		return (this.getMensaje() + " (LINEA: " + this.nLinea + ")");
-	}
+		return (this.informe + " (LINEA: " + this.nLinea + ")");
+	}	
+	
 	public int getLinea(){
-		return this.nLinea;
-	}
+			return this.nLinea;
+		}
 	public String getMensaje(){
 		return this.informe;
 	}
+	
 	
 }

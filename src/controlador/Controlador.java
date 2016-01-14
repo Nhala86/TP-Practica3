@@ -74,8 +74,11 @@ public class Controlador {
      */
 	public void realizaSimulacion() throws IOException, PalabraIncorrecta{
 		System.out.println("Bienvenido al juego de la vida: ");
-		String mensaje = "";		
+		String mensaje = "";
 		while (!this.simulacionTerminada){
+			
+			Mundo antiguo = this.mundo;
+			
 			System.out.println(mundo.toStringBuffer());
 			String [] palabras = crearComando(this.in);				
 			try {
@@ -94,6 +97,9 @@ public class Controlador {
 				
 			}catch (NullPointerException e){
 				System.out.println("Comando desconocido (Escriba AYUDA para infomarse de los comandos disponibles)");
+			}catch(PalabraIncorrecta e){
+				System.out.println(e.Informe());
+				this.mundo = antiguo;
 			}
 		}	
 	}
@@ -131,9 +137,7 @@ public class Controlador {
 			entrada.close();
 			System.out.println("Carga realizada con exito");
 		} catch (FileNotFoundException e) {
-			System.out.println("El nombre del fichero especificado no existe");					
-		}catch(PalabraIncorrecta e){
-			System.out.println(e.Informe());
+			System.out.println("El nombre del fichero especificado no existe");
 		}
 	}
 	

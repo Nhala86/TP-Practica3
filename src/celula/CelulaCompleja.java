@@ -81,7 +81,7 @@ public class CelulaCompleja implements Celula {
 		try{
 			this.explota = Integer.parseInt(datos[3]);
 		}catch(NumberFormatException e){
-			throw new FormatoNumericoIncorrecto(" la linea tiene parametros con formato erroneo");
+			throw new FormatoNumericoIncorrecto("La linea tiene parametros con formato erroneo");
 		}
 	}
 

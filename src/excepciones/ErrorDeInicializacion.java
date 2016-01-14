@@ -1,7 +1,7 @@
 package excepciones;
 
 
-public class ErrorDeInicializacion extends Throwable{
+public class ErrorDeInicializacion extends Exception{
 	
 	/**
 	 * 
