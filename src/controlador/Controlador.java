@@ -23,16 +23,6 @@ public class Controlador {
 	private boolean simulacionTerminada = false;
 	
 	/**
-	 * Metodo constructor que inicializa el mundo y el scanner
-	 */
-	/*
-	public Controlador(){
-		this.mundo = new Mundo();
-		this.in = new Scanner(System.in);
-	}
-	*/
-	
-	/**
 	 * Metodo constructor del Controlador que define los parametros mundo e in
 	 * @param mundo le pasa el nuevo mundo inicializado
 	 * @param in le pasa los controles ya inicializados
@@ -69,18 +59,26 @@ public class Controlador {
     /**
      * Metodo encargado de los controles que el usuario introduce para el funcionamiento del juego
      * y encargado de llamar a las funciones en otras clases para mostrar por pantalla el juego y sus movimientos
+     * @param  args El contenido de String[] args del main
      * @throws PalabraIncorrecta 
      * @throws IOException para evitar los errores del cargado y el guardado
      */
-	public void realizaSimulacion() throws IOException, PalabraIncorrecta{
+	public void realizaSimulacion(String[] args) throws IOException, PalabraIncorrecta{
 		System.out.println("Bienvenido al juego de la vida: ");
 		String mensaje = "";
+		String[] palabras;
+		boolean inicio = true;
 		while (!this.simulacionTerminada){
-			
 			Mundo antiguo = this.mundo;
-			
 			System.out.println(mundo.toStringBuffer());
-			String [] palabras = crearComando(this.in);				
+			//Si es la llamada inicial y hay algun argumento, la palabra es el argumento
+			if (args.length > 0 && inicio){
+				palabras = args;
+				inicio = false;
+			}
+			else{
+				palabras = crearComando(this.in);
+			}
 			try {
 				Comando comando = ParserComandos.parseaComando(palabras);				
 				mensaje = comando.ejecuta(this);

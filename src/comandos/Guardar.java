@@ -14,7 +14,7 @@ public class Guardar implements Comando {
 		this.fichero = nombre;
 	}
 	@Override
-	public String textoAyuda() {
+	public String textoAyuda(){
 		return ("GUARDAR: guarda en un fichero de texto una partida" + System.getProperty("line.separator"));
 	}
 
@@ -22,7 +22,6 @@ public class Guardar implements Comando {
 	public String ejecuta(Controlador controlador) throws IOException{
 		controlador.guardar(this.fichero);
 		return "";
-	
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package main;
 
 import java.io.IOException;
 import java.util.Scanner;
-
 import controlador.Controlador;
 import excepciones.PalabraIncorrecta;
 import logica.Mundo;
@@ -20,7 +19,7 @@ public class Main {
 		Scanner in = new Scanner(System.in);
 		Mundo mundo = new MundoSimple();
 		Controlador controlador = new Controlador(mundo, in);
-		controlador.realizaSimulacion();
+		controlador.realizaSimulacion(args);
 	}
 
 }
